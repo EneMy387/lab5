@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>CV - Backend Developer (Node.js/NestJS)</title>
+  <link rel="stylesheet" href="/css/main.css" />
+  <style>
+  </style>
+</head>
+<body>
+  <button class="theme-toggle">🌓 Змінити тему</button>
+    <div class="container">
+        <img src="/img/face-gen.png" alt="Фото профілю" class="profile-photo" />
+        <h1>Пуляк Вадим Ярославович</h1>
+        <h2>Backend Developer (Node.js/NestJS)</h2>
+
+        <div class="section">
+            <h3>Мета</h3>
+            <p class="objective">
+                Прагну розвиватися у сфері розробки backend-систем з акцентом на високонавантажені API, microservices та безпеку.
+                Хочу стати частиною інноваційної команди, де зможу вдосконалити свої навички та принести користь компанії.
+            </p>
+        </div>
+
+        <div class="section">
+            <h3>Контакти</h3>
+            <ul class="contact">
+                <li>Email: vadym.puliak.kbz.2022@lpnu.ua</li>
+                <li>Телефон: +380688899625</li>
+                <li>GitHub: <a href="#">enemy387</a></li>
+                <li>Telegram: <a href="#">https://t.me/Pm_EneMy</a></li>
+                <li>LinkedIn: <a href="#">(додайте посилання)</a></li>
+            </ul>
+        </div>
+
+        <div class="section">
+            <h3>Навички</h3>
+            <ul class="skills">
+                <li>Node.js, NestJS</li>
+                <li>TypeScript, JavaScript</li>
+                <li>PostgreSQL, MongoDB</li>
+                <li>REST API, GraphQL</li>
+                <li>Docker, Kubernetes</li>
+                <li>CI/CD, AWS, Firebase</li>
+                <li>JWT, Passport.js, WebSockets</li>
+            </ul>
+        </div>
+
+        <div class="section">
+            <h3>АЛЯ Проєкти</h3>
+            <ul class="projects">
+                <li><strong>Task Manager API:</strong> система керування задачами з NestJS, PostgreSQL та аутентифікацією.</li>
+                <li><strong>Chat App:</strong> простий чат з авторизацією, WebSocket та MongoDB (NestJS).</li>
+                <li><strong>GitHub Finder:</strong> застосунок на Node.js для пошуку користувачів через GitHub API.</li>
+            </ul>
+        </div>
+
+        <div class="section">
+            <h3>Досвід роботи</h3>
+            <ul class="experience">
+                <li><strong>None</strong><br>Наразі не маю комерційного досвіду роботи.</li>
+            </ul>
+        </div>
+
+        <div class="section">
+            <h3>Освіта</h3>
+            <ul class="education">
+                <li><strong>Кібербезпека</strong> – НУЛП (2022–2026)</li>
+            </ul>
+        </div>
+
+        <div class="section">
+            <h3>Мови</h3>
+            <ul class="languages">
+                <li>Українська – рідна</li>
+                <li>Англійська – середній (Intermediate)</li>
+            </ul>
+        </div>
+    </div>
+
+  <!-- Модальне вікно зворотного зв'язку -->
+  <div id="feedback-modal">
+    <form action="https://formspree.io/f/mdkgdgok" method="POST">
+      <h3>Зворотний зв'язок</h3>
+      <input type="text" name="name" placeholder="Ім'я" required /><br />
+      <input type="email" name="email" placeholder="Email" required /><br />
+      <input type="tel" name="phone" placeholder="Телефон" required /><br />
+      <textarea name="message" placeholder="Ваше повідомлення" required></textarea><br />
+      <button type="submit">Відправити</button>
+    </form>
+  </div>
+
+  <footer id="system-info">
+    <strong>Інформація про систему:</strong>
+  </footer>
+
+  <script>
+    // 1. Збереження інформації у localStorage
+    const browserData = {
+      userAgent: navigator.userAgent,
+      platform: navigator.platform,
+      language: navigator.language,
+      screenSize: `${screen.width}x${screen.height}`,
+    };
+    localStorage.setItem("browserInfo", JSON.stringify(browserData));
+
+    const info = JSON.parse(localStorage.getItem("browserInfo"));
+    const footer = document.getElementById("system-info");
+    footer.innerHTML += `<p>${Object.entries(info).map(([k,v]) => `${k}: ${v}`).join('<br>')}</p>`;
+
+    // 2. Завантаження коментарів з JSONPlaceholder
+    fetch("https://jsonplaceholder.typicode.com/posts/13/comments")
+      .then(res => res.json())
+      .then(comments => {
+        const container = document.querySelector(".container");
+        const section = document.createElement("div");
+        section.className = "section";
+        section.innerHTML = "<h3>Відгуки</h3>" + comments.map(c => `<p><strong>${c.name}</strong>: ${c.body}</p>`).join('');
+        container.appendChild(section);
+      });
+
+    // 3. Відкриття форми через 1 хвилину
+    setTimeout(() => {
+      document.getElementById("feedback-modal").style.display = "flex";
+    }, 60000);
+
+    // 4. Перемикання теми вручну
+    const toggleBtn = document.querySelector(".theme-toggle");
+    toggleBtn.addEventListener("click", () => {
+      document.body.classList.toggle("dark-mode");
+    });
+
+    // Автоматичне перемикання теми
+    const hour = new Date().getHours();
+    if (hour < 7 || hour > 19) {
+      document.body.classList.add("dark-mode");
+    }
+  </script>
+</body>
+</html>
